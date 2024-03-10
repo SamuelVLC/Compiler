@@ -34,10 +34,27 @@ extern YYSTYPE cool_yylval;
  *  Add Your own definitions here
 */
 #define DIGITS [0-9]
-#define WHITE_SPACE [ \n\f\r\t\v]
-#define KEYWORD (?i:(class|else|if|in|inherits|isvoid|let|loop|pool|then|while|case|esac|new|of|not))|(false|true)  
-#define IDENTIFIER (?!{KEYWORD})[A-Z][A-Za-z0-9_]*
-#define TYPE_IDENTIFIER (?!{KEYWORD})[A-Z][A-Za-z]*
+#define WHITE_SPACES [ \n\f\r\t\v]
+#define KEYWORD (?i:(class|else|if|in|inherits|isvoid|let|loop|pool|then|while|case|esac|new|of|not))|(false|true)
+#define CLASSES (class|Class|CLASS)
+#define ELSES (else|Else|ELSE)
+#define IFS (if|If|IF)
+#define INS (in|In|IN)
+#define INHERITSS (inherits|Inherits|INHERITS)
+#define ISVOIDS (isvoid|Isvoid|ISVOID)
+#define LETS (let|Let|LET)
+#define LOOPS (loop|Loop|LOOP)
+#define POOLS (pool|Pool|POOL)
+#define THENS (then|Then|THEN)
+#define WHILES (while|While|WHILE)
+#define CASES (case|Case|CASE)
+#define ESACS (esac|Esac|ESAC)
+#define NEWS (new|New|NEW)
+#define OFS (of|Of|OF)
+#define NOTS (not|Not|NOT)
+#define BOOL_CONSTS (true|false)
+#define IDENTIFIERS (?!{KEYWORD})[A-Z][A-Za-z0-9_]*
+#define TYPE_IDENTIFIERS (?!{KEYWORD})[A-Z][A-Za-z]*
 %}
 
 
@@ -45,12 +62,28 @@ extern YYSTYPE cool_yylval;
  * Define names for regular expressions here.
  */
 
-DARROW  =>
-INTEGERS  -?DIGITS+
-WHITE_SPACES  WHITE_SPACE+
-KEYWORDS  KEYWORD+
-IDENTIFIERS   IDENTIFIER+
-TYPE_IDENTIFIERS  TYPE_IDENTIFIER+
+DARROW          =>
+INT_CONST       -?{DIGITS}+
+WHITE_SPACE     {WHITE_SPACES}+
+CLASS           {CLASSES}+
+ELSE            {ELSES}+
+IF              {IFS}+
+IN              {INS}+
+INHERITS        {INHERITSS}+
+ISVOID          {ISVOIDS}+
+LET             {LETS}+ 
+LOOP            {LOOPS}+
+POOL            {POOLS}+
+THEN            {THENS}+
+WHILE           {WHILES}+
+CASE            {CASES}+ 
+ESAC            {ESACS}+
+NEW             {NEWS}+
+OF              {OFS}+
+NOT             {NOTS}+
+BOOL_CONST      {BOOL_CONSTS}+ 
+IDENTIFIER      {IDENTIFIERS}+
+TYPE_IDENTIFIER {TYPE_IDENTIFIERS}+
 
 %x COMMENTS_DASH
 %x COMMENTS_PAREN
@@ -81,12 +114,28 @@ TYPE_IDENTIFIERS  TYPE_IDENTIFIER+
  /*
   *  The multiple-character operators.
   */
-DARROW            { printf("Token: %s\n", yytext); return DARROW; }
-{INTEGERS}          { printf("Token: %s\n", yytext); return INTEGERS;}
-WHITE_SPACES      ; /* Do nothing for white spaces */
-KEYWORDS          {printf("Token: %s\n", yytext); return KEYWORDS;}
-IDENTIFIERS       {printf("Token: %s\n", yytext); return IDENTIFIERS;}
-TYPE_IDENTIFIERS  {printf("Token: %s\n", yytext); return TYPE_IDENTIFIERS;}
+DARROW          { printf("Token: %s\n", yytext); return DARROW; }
+INT_CONST       { printf("Token: %s\n", yytext); return INT_CONST; }
+WHITE_SPACE     /* Do nothing for white spaces */
+CLASS           { printf("Token: %s\n", yytext); return CLASS; }
+ELSE            { printf("Token: %s\n", yytext); return ELSE; }
+IF              { printf("Token: %s\n", yytext); return IF; }
+IN              { printf("Token: %s\n", yytext); return IN; }
+INHERITS        { printf("Token: %s\n", yytext); return INHERITS; }
+ISVOID          { printf("Token: %s\n", yytext); return ISVOID; }
+LET             { printf("Token: %s\n", yytext); return LET; }
+LOOP            { printf("Token: %s\n", yytext); return LOOP; }
+POOL            { printf("Token: %s\n", yytext); return POOL; }
+THEN            { printf("Token: %s\n", yytext); return THEN; }
+WHILE           { printf("Token: %s\n", yytext); return WHILE; }
+CASE            { printf("Token: %s\n", yytext); return CASE; }
+ESAC            { printf("Token: %s\n", yytext); return ESAC; }
+NEW             { printf("Token: %s\n", yytext); return NEW; }
+OF              { printf("Token: %s\n", yytext); return OF; }
+NOT             { printf("Token: %s\n", yytext); return NOT; }
+BOOL_CONST      { printf("Token: %s\n", yytext); return BOOL_CONST; }
+IDENTIFIER      { printf("Token: %s\n", yytext); return IDENTIFIER; }
+TYPE_IDENTIFIER { printf("Token: %s\n", yytext); return TYPE_IDENTIFIER; }
 
 . ; /* Do nothing */
 
