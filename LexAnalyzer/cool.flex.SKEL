@@ -116,7 +116,7 @@ TYPE_IDENTIFIER {TYPE_IDENTIFIERS}+
   */
 DARROW          { printf("Token: %s\n", yytext); return DARROW; }
 INT_CONST       { printf("Token: %s\n", yytext); return INT_CONST; }
-WHITE_SPACE     /* Do nothing for white spaces */
+WHITE_SPACE     ;/* Do nothing for white spaces */
 CLASS           { printf("Token: %s\n", yytext); return CLASS; }
 ELSE            { printf("Token: %s\n", yytext); return ELSE; }
 IF              { printf("Token: %s\n", yytext); return IF; }
