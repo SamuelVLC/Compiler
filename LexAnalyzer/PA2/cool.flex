@@ -247,6 +247,9 @@ TYPEID          [A-Z][A-Za-z0-9_]*
 DARROW               {  return DARROW; }
 "<-"                 {  return ASSIGN;  }
 
+ /*
+  * Special characters
+  */
 "+"                  { return '+'; }
 "/"                  { return '/'; }
 "-"                  { return '-'; }
@@ -262,7 +265,12 @@ DARROW               {  return DARROW; }
 "@"                  { return '@'; }
 "{"                  { return '{'; }
 "}"                  { return '}'; }
+","                  { return ','; }
+"~"                  { return '~'; }
 
-. ; /* Do nothing */
+. {
+    cool_yylval.error_msg = strdup(yytext);
+    return ERROR;   
+} 
 
 %%
