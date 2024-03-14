@@ -35,7 +35,7 @@ extern YYSTYPE cool_yylval;
 /*
  *  Add Your own definitions here
 */
-int buffer_index = 0;
+int buffer_index;
 %}
 
 
@@ -73,6 +73,8 @@ TYPEID          [A-Z][A-Za-z0-9_]*
 %x STRING_ERROR
 
 %%
+\n               {curr_lineno++;}
+
  /*
   * Begin comments
   */
@@ -117,7 +119,6 @@ TYPEID          [A-Z][A-Za-z0-9_]*
  /*
   * Count lines
   */
-\n               {curr_lineno++;}
 
  /*
   * Keywords are case-insensitive except for the values true and false,
@@ -157,7 +158,15 @@ TYPEID          [A-Z][A-Za-z0-9_]*
   *  \n \t \b \f, the result is c.
   *
   */
-\"                 { BEGIN(STRING); buffer_index = 0;}
+\"                 { BEGIN(STRING); buffer_index = 0; }
+
+<STRING>\"           {
+  BEGIN(INITIAL);
+  string_buf[buffer_index] = '\0';
+  cool_yylval.symbol = inttable.add_string(string_buf);
+  return STR_CONST;
+}
+
 <STRING>.          {
   if(buffer_index + yyleng >= MAX_STR_CONST)
     {
@@ -185,8 +194,7 @@ TYPEID          [A-Z][A-Za-z0-9_]*
     }
 }
 
-<STRING>"\n"         {
-  curr_lineno++;
+<STRING>"\\n"         {
   if (buffer_index >= MAX_STR_CONST)
   {
       BEGIN(STRING_ERROR);
@@ -224,20 +232,14 @@ TYPEID          [A-Z][A-Za-z0-9_]*
   if (string_buf[buffer_index-1] != '\\')
   {
     cool_yylval.error_msg = strdup("Unterminated string constant");
-    BEGIN(INITIAL);
+    BEGIN(STRING_ERROR);
     return ERROR;   
   }
 }
 
 <STRING_ERROR>. ; /* Do nothing while \n is not found */
-
-<STRING_ERROR>[\n"]  {BEGIN(INITIAL);}
-
-<STRING>\"           {
-  BEGIN(INITIAL);
-  cool_yylval.symbol = inttable.add_string(string_buf);
-  return STR_CONST;
-}
+<STRING_ERROR>\n     { curr_lineno++; BEGIN(INITIAL); }
+<STRING_ERROR>\"     { BEGIN(INITIAL); }
 
  /*
   *  The multiple-character operators.
