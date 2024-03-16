@@ -42,9 +42,6 @@ int buffer_index;
 /*
  * Define names for regular expressions here.
  */
-
-KEYWORD         (class|else|if|in|inherits|isvoid|let|loop|pool|then|while|case|esac|new|of|not)|(false|true)
-DARROW          =>
 INT_CONST       [0-9]
 CLASS           [Cc][Ll][Aa][Ss][Ss]
 ELSE            [Ee][Ll][Ss][Ee]
@@ -244,8 +241,8 @@ TYPEID          [A-Z][A-Za-z0-9_]*
  /*
   *  The multiple-character operators.
   */
-DARROW               {  return DARROW; }
-"<-"                 {  return ASSIGN;  }
+=>                   {  return DARROW; }
+"<-"                 {  return ASSIGN; }
 
  /*
   * Special characters
