@@ -241,7 +241,8 @@ TYPEID          [A-Z][A-Za-z0-9_]*
  /*
   *  The multiple-character operators.
   */
-=>                   {  return DARROW; }
+">="                 {  return DARROW; }
+"<="                 {  return DARROW; }
 "<-"                 {  return ASSIGN; }
 
  /*
