@@ -77,6 +77,10 @@ class CellularAutomaton inherits IO {
 
 class Main {
     cells : CellularAutomaton;
+    String : test <- "Ola. isso e um teste";
+    String : Othertest <- "Ola. this is another;   
+    teste";
+    String : Lasttest <- "Ola. this is \0 the last test";
     
     main() : SELF_TYPE {
         {
