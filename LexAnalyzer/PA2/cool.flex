@@ -96,7 +96,7 @@ TYPEID          [A-Z][A-Za-z0-9_]*
  /*
   * Return to initial state 
   */
-<COMMENTS_DASH>\n {BEGIN(INITIAL);}
+<COMMENTS_DASH>\n { curr_lineno++; BEGIN(INITIAL);}
 <COMMENTS_PAREN>"*)" {BEGIN(INITIAL);}
 
  /*
