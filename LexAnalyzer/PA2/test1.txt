@@ -1,7 +1,11 @@
--- Teste 1: CLASS Token
+(*
+    Observação todos os comentários devem ser `IGNORADOS`
+*)
+
+-- Teste 1: Deve reconhecer todos os Tokens do exemplo de código abaixo
 -- Input:
 class Main {
-    feature: method(): Object {
+    method(): Object {
         let x: Int <- 10 + 5;
         if true then
             "True"
@@ -11,27 +15,53 @@ class Main {
 }
 
 -- Resultado Esperado:
--- A token CLASS deve ser reconhecida corretamente
+-- Deve reconhecer corretamente CLASS
+-- Deve reconhecer corretamente TYPEID Main
+-- Deve reconhecer corretamente '{'
+-- Deve reconhecer corretamente OBJECTID method
+-- Deve reconhecer corretamente '('
+-- Deve reconhecer corretamente ')'
+-- Deve reconhecer corretamente ':'
+-- Deve reconhecer corretamente TYPEID Object
+-- Deve reconhecer corretamente '{'
+-- Deve reconhecer corretamente LET
+-- Deve reconhecer corretamente OBJECTID x
+-- Deve reconhecer corretamente ':'
+-- Deve reconhecer corretamente TYPEID Int
+-- Deve reconhecer corretamente ASSIGN
+-- Deve reconhecer corretamente INT_CONST 10
+-- Deve reconhecer corretamente '+'
+-- Deve reconhecer corretamente INT_CONST 5
+-- Deve reconhecer corretamente ';'
+-- Deve reconhecer corretamente IF
+-- Deve reconhecer corretamente BOOL_CONST true
+-- Deve reconhecer corretamente THEN
+-- Deve reconhecer corretamente STR_CONST "True"
+-- Deve reconhecer corretamente ELSE
+-- Deve reconhecer corretamente STR_CONST "False"
+-- Deve reconhecer corretamente '}'
+-- Deve reconhecer corretamente '}'
+
 
 -- Teste 2: Identificadores Tipo e Objeto
 -- Input:
 int I
-Interger i
+Integer i
 
 -- Resultado Esperado:
--- Deve ser reconhecido TYPEID (int) seguido por OBJECTID (I)
--- Deve ser reconhecido TYPEID (Interger) seguido por OBJECTID (i)
+-- Deve ser reconhecido OBJECTID (int) seguido por TYPEID (I)
+-- Deve ser reconhecido TYPEID (Integer) seguido por OBJECTID (i)
 
--- Teste 3: Tokens IF e THEN
+-- Teste 3: Tokens IF e THEN e todas outras `KEYWORDS`
 -- Input:
-IFIF THEN
+IFIF THENTHEN
 IF THEN
-THEN
-
+IFTHEN
+ifthen
 -- Resultado Esperado:
--- Deve ser reconhecido IF seguido por IF
--- Deve ser reconhecido IF seguido por THEN
--- Deve ser reconhecido THEN
+-- Não deve ser reconhecido como IF seguido por THEN
+-- Deve ser reconhecido como IF seguido por THEN
+-- Deve ser um TYPEID(IFTHEN) OBJECTID(ifthen)
 
 -- Teste 4: Tokens NEW e ELSE
 -- Input:
@@ -41,7 +71,7 @@ ELSE
 
 -- Resultado Esperado:
 -- Deve ser reconhecido NEW
--- Deve ser reconhecido OBJECTID (new)
+-- Deve ser reconhecido new
 -- Deve ser reconhecido ELSE
 
 -- Teste 5: Tokens CONST e IF
@@ -51,26 +81,64 @@ CONST IF
 -- Resultado Esperado:
 -- Deve ser reconhecido TYPEID (CONST) seguido por IF
 
--- Teste 6: Ignorar Token LET_STMT
--- Input:
-LET_STMT
 
--- Resultado Esperado:
--- A token LET_STMT deve ser ignorada e não retornar nenhum token correspondente
-
-
-
--- Teste 7: Ignorar Token error
--- Input:
-error
-
--- Resultado Esperado:
--- A token error em minúsculas deve ser ignorada e não retornar nenhum token correspondente
-
-
--- Teste 8: String Maior que 1025 Caracteres
+-- Teste 6: String Maior que 1025 Caracteres
 -- Input:
 "22333This is a very long string with more than 1025 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This string 22333This is a very long string with more than 1025 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This string 22333This is a very long string with more than 1025 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This string 22333This is a very long string with more than 1025 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This string 22333This is a very long string with more than 1025 characters. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. This string continues..."
 
 -- Resultado Esperado:
--- Deve ser reportado um erro para a string constante muito longa
+-- Deve ser reportado `ERROR:` "String constant too long"
+
+
+-- Teste 7: Converter caracteres de escape
+-- Input:
+"ab\ncd”
+
+
+-- Resultado Esperado:
+-- \n deve ser considerado como um único caracter
+
+
+-- Teste 8: retornar um erro para um string contendo o caractere nulo
+-- Input:
+""
+
+
+-- Resultado Esperado:
+-- Deve retornar uma string com \0 no final
+
+-- Teste 9: Se for \0 deve retornar um
+-- Input:
+"\0"
+
+-- Resultado Esperado:
+-- Deve retornar `ERROR:` "String contains null character"
+
+
+-- Teste 10: Se for \0 deve retornar um
+-- Input:
+"\0"
+
+-- Resultado Esperado:
+-- Deve retornar `ERROR:` "String contains null character"
+
+
+-- Teste 11: Se conter uma nova linha sem escape deve retornar
+-- Input:
+"
+
+-- Resultado Esperado:
+-- Deve retornar `ERROR:` "Unterminated string constant"
+
+
+-- Teste 12: Caractere inválido, retonar uma string error com o caractere
+-- Input:
+&
+!
+-- Resultado Esperado:
+-- Deve retornar `ERROR:` "&"
+-- Deve retornar `ERROR:` "!"
+
+-- Teste 13: String EOF deve retornar um `ERROR:` "EOF in string constant
+-- Input:
+"

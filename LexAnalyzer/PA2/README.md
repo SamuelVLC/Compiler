@@ -178,15 +178,15 @@ Adicionamos alguns testes que representam validações de um analisador léxico 
 ---
 # Tratamento de Erros
 
-   - [ ] O analisador léxico não imprime nada e comunica erros ao parser retornando uma token especial de erro chamada `ERROR`.
-   - [ ] Quando um caractere inválido é encontrado, uma string contendo apenas esse caractere é retornada como string de erro.
-   - [ ] Se um string contiver uma nova linha sem caractere de escape, é relatado como "Unterminated string constant" e a análise léxica continua no início da próxima linha.
+   - [x] O analisador léxico não imprime nada e comunica erros ao parser retornando uma token especial de erro chamada `ERROR`.
+   - [x] Quando um caractere inválido é encontrado, uma string contendo apenas esse caractere é retornada como string de erro.
+   - [x] Se um string contiver uma nova linha sem caractere de escape, é relatado como "Unterminated string constant" e a análise léxica continua no início da próxima linha.
    - [x] Quando um string é muito longo, é relatado como "String constant too long" no string de erro do token `ERROR`. Se o string contiver caracteres inválidos, é relatado como "String contains null character".
+   - [x] Se "*)" for encontrado fora de um comentário, é relatado como "Unmatched *)".
+   - [x] A análise léxica continua após os erros, de acordo com as regras especificadas para cada tipo de erro. Por exemplo, no caso de um string muito longo, a análise continua após o final do string.
+   - [x] Todos os erros são retornados como tokens especiais `ERROR`, conforme exigido, em vez de serem impressos diretamente.
+   - [x] A token `error` (com letra minúscula) é ignorada para essa tarefa, já que será usada pelo parser no TP03, por ignorar decidimos não usar a palavra-chave `error` para identificar token de `erro`, logo, é um `ObjectID`.
    - [ ] Se um comentário permanecer aberto quando o EOF for encontrado, é relatado como "EOF in comment". Não se tokenizar o conteúdo do comentário, mesmo se o terminador estiver faltando.
    - [ ] Se um EOF for encontrado antes do fechamento de um string, é relatado como "EOF in string constant".
-   - [x] Se "*)" for encontrado fora de um comentário, é relatado como "Unmatched *)".
-   - [ ] A análise léxica continua após os erros, de acordo com as regras especificadas para cada tipo de erro. Por exemplo, no caso de um string muito longo, a análise continua após o final do string.
-   - [ ] Todos os erros são retornados como tokens especiais `ERROR`, conforme exigido, em vez de serem impressos diretamente.
-   - [ ] A token `error` (com letra minúscula) é ignorada para essa tarefa, já que será usada pelo parser no TP03.
 
 
