@@ -186,7 +186,7 @@ Adicionamos alguns testes que representam validações de um analisador léxico 
    - [x] A análise léxica continua após os erros, de acordo com as regras especificadas para cada tipo de erro. Por exemplo, no caso de um string muito longo, a análise continua após o final do string.
    - [x] Todos os erros são retornados como tokens especiais `ERROR`, conforme exigido, em vez de serem impressos diretamente.
    - [x] A token `error` (com letra minúscula) é ignorada para essa tarefa, já que será usada pelo parser no TP03, por ignorar decidimos não usar a palavra-chave `error` para identificar token de `erro`, logo, é um `ObjectID`.
-   - [ ] Se um comentário permanecer aberto quando o EOF for encontrado, é relatado como "EOF in comment". Não se tokenizar o conteúdo do comentário, mesmo se o terminador estiver faltando.
-   - [ ] Se um EOF for encontrado antes do fechamento de um string, é relatado como "EOF in string constant".
+   - [x] Se um comentário permanecer aberto quando o EOF for encontrado, é relatado como "EOF in comment". Não se tokenizar o conteúdo do comentário, mesmo se o terminador estiver faltando.
+   - [x] Se um EOF for encontrado antes do fechamento de um string, é relatado como "EOF in string constant".
 
 
