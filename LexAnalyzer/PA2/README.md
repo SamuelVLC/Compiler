@@ -122,5 +122,65 @@ Instructions
 
 Write-up for PA2
 ----------------
-TODO
+
+
+### Algumas das expressões regulares usadas para identificar diferentes tokens no analisador léxico:
+
+1. **Palavras-chave (Keywords):**
+   - As palavras-chave da linguagem Cool são definidas usando expressões regulares simples, como `{CLASS}`, `{ELSE}`, `{IF}`, `{FI}`, `{IN}`, `{INHERITS}`, `{ISVOID}`, `{LET}`, `{LOOP}`, `{POOL}`, `{THEN}`, `{WHILE}`, `{CASE}`, `{ESAC}`, `{NEW}`, `{OF}`, `{NOT}`, `{BOOL_CONST}`. 
+   - Cada uma dessas expressões corresponde a uma palavra-chave específica da linguagem Cool. Por exemplo, `{CLASS}` corresponde à palavra-chave "class".
+
+2. **Constantes Inteiras (INT_CONST):**
+   - A constante inteira é identificada pela expressão regular `{INT_CONST}`, que corresponde a sequências de dígitos de 0 a 9.
+
+3. **Identificadores de Objetos (OBJECTID) e Identificadores de Tipos (TYPEID):**
+   - Os identificadores de objetos e tipos são identificados pelas expressões regulares `{OBJECTID}` e `{TYPEID}`, respectivamente.
+   - Os identificadores de objetos começam com uma letra minúscula seguida de letras maiúsculas, minúsculas, dígitos ou sublinhados.
+   - Os identificadores de tipos começam com uma letra maiúscula seguida das mesmas possibilidades que os identificadores de objetos.
+
+4. **Constantes Booleanas (BOOL_CONST):**
+   - As constantes booleanas "true" e "false" são identificadas pela expressão regular `{BOOL_CONST}`.
+
+5. **Operadores e Símbolos Especiais:**
+   - Operadores e símbolos especiais são identificados diretamente por seus caracteres correspondentes. Por exemplo, `">="`, `"<="`, `"<-"`, `"+"`, `"/"`, `"-"`, `"*"`, `"="`, `"<"`, `">"`, `"."`, `";"`, `":"`, `"("`, `")"`, `"@"`, `"{"`, `"}"`, `","`, `"~"`.
+   - Esses tokens são identificados diretamente pelas sequências de caracteres correspondentes.
+
+6. **Constantes de String (STR_CONST):**
+   - As constantes de string são identificadas pela expressão regular `"\"`. Isso marca o início de uma constante de string.
+   - A constante de string é encerrada quando outra aspa dupla (`"`) é encontrada, após possíveis caracteres de escape, como `"\n"` e `"\0"`.
+
+
+---
+# Tratamento de String
+
+1. **Armazenamento de Lexemas em uma Tabela de Strings:**
+   - [x] Implementação da tabela de strings, Inclusão de todos os lexemas na tabela, Utilização eficiente de espaço e tempo para armazenamento.
+
+2. **Tratamento de Identificadores Especiais:**
+   - [x] Tratamento uniforme de identificadores especiais (Object, Int, Bool, String, SELF_TYPE e self), com tratamento igualitário de identificadores especiais e regulares nesta fase do compilador.
+
+3. **Manipulação Simplificada de Literais Inteiros:**
+   - [x] Tratamento dos literais inteiros como tokens de identificadores.
+   - [x] Armazenamento de literais inteiros na tabela de strings sem verificar o comprimento.
+
+4. **Processamento de Constantes de String:**
+   - [x] Conversão de caracteres de escape em constantes de string para seus valores correspondentes.
+   - [x] Reporte de erros para strings contendo o caractere nulo.
+   - [x] Permissão da sequência `"\0"`, convertendo-a para o caractere nulo.
+
+
+---
+# Tratamento de Erros
+
+   - [ ] O analisador léxico não imprime nada e comunica erros ao parser retornando uma token especial de erro chamada `ERROR`.
+   - [ ] Quando um caractere inválido é encontrado, uma string contendo apenas esse caractere é retornada como string de erro.
+   - [ ] Se um string contiver uma nova linha sem caractere de escape, é relatado como "Unterminated string constant" e a análise léxica continua no início da próxima linha.
+   - [x] Quando um string é muito longo, é relatado como "String constant too long" no string de erro do token `ERROR`. Se o string contiver caracteres inválidos, é relatado como "String contains null character".
+   - [ ] Se um comentário permanecer aberto quando o EOF for encontrado, é relatado como "EOF in comment". Não se tokenizar o conteúdo do comentário, mesmo se o terminador estiver faltando.
+   - [ ] Se um EOF for encontrado antes do fechamento de um string, é relatado como "EOF in string constant".
+   - [x] Se "*)" for encontrado fora de um comentário, é relatado como "Unmatched *)".
+   - [ ] A análise léxica continua após os erros, de acordo com as regras especificadas para cada tipo de erro. Por exemplo, no caso de um string muito longo, a análise continua após o final do string.
+   - [ ] Todos os erros são retornados como tokens especiais `ERROR`, conforme exigido, em vez de serem impressos diretamente.
+   - [ ] A token `error` (com letra minúscula) é ignorada para essa tarefa, já que será usada pelo parser no TP03.
+
 
