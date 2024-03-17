@@ -232,6 +232,8 @@ TYPEID          [A-Z][A-Za-z0-9_]*
     BEGIN(STRING_ERROR);
     return ERROR;   
   }
+
+  string_buf[buffer_index-1] = ' ';
 }
 
 <STRING_ERROR>. ; /* Do nothing while \n is not found */
