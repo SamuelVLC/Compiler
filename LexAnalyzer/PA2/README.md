@@ -123,6 +123,12 @@ Instructions
 Write-up for PA2
 ----------------
 
+### Testes Adicionais 
+
+Adicionamos alguns testes que representam validações de um analisador léxico para linguagem COOL e outros pedidos compartilhados na descrição do TP2.
+
+`./lexer test1.txt`
+`./lexer test2.cl`
 
 ### Algumas das expressões regulares usadas para identificar diferentes tokens no analisador léxico:
 
