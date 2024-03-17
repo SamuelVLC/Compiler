@@ -78,16 +78,16 @@ class CellularAutomaton inherits IO {
 class Main {
     cells : CellularAutomaton;
     String : test <- "Ola. isso e um teste";
-    String : Othertest <- "Ola. this is another;   
-    teste";
-    String : Lasttest <- "Ola. this is \0 the last test";
+    String : Othertest <- "Ola. this is another \
+teste";
+    String : Lasttest <- "Ola. this is \n the last test";
     
     main() : SELF_TYPE {
         {
             cells <- (new CellularAutomaton).init("         X         ");
             cells.print();
             (let countdown : Int <- 20 in
-                while countdown > 0 loop
+                while countdown >= 0 loop
                     {
                         cells.evolve();
                         cells.print();
