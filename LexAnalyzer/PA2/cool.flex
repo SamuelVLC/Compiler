@@ -121,24 +121,24 @@ TYPEID          [A-Z][A-Za-z0-9_]*
   * Keywords are case-insensitive except for the values true and false,
   * which must begin with a lower-case letter.
   */
-{CLASS}+           { return CLASS; }
-{ELSE}+            { return ELSE; }
-{IF}+              { return IF; }
-{FI}+              { return FI; }
-{IN}+              { return IN; }
-{INHERITS}+        { return INHERITS; }
-{ISVOID}+          { return ISVOID; }
-{LET}+             { return LET; }
-{LOOP}+            { return LOOP; }
-{POOL}+            { return POOL; }
-{THEN}+            { return THEN; }
-{WHILE}+           { return WHILE; }
-{CASE}+            { return CASE; }
-{ESAC}+            { return ESAC; }
-{NEW}+             { return NEW; }
-{OF}+              { return OF; }
-{NOT}+             { return NOT; }
-{BOOL_CONST}+      { return BOOL_CONST; }
+{CLASS}           { return CLASS; }
+{ELSE}            { return ELSE; }
+{IF}              { return IF; }
+{FI}              { return FI; }
+{IN}              { return IN; }
+{INHERITS}        { return INHERITS; }
+{ISVOID}          { return ISVOID; }
+{LET}             { return LET; }
+{LOOP}            { return LOOP; }
+{POOL}            { return POOL; }
+{THEN}            { return THEN; }
+{WHILE}           { return WHILE; }
+{CASE}            { return CASE; }
+{ESAC}            { return ESAC; }
+{NEW}             { return NEW; }
+{OF}              { return OF; }
+{NOT}             { return NOT; }
+{BOOL_CONST}      { return BOOL_CONST; }
 
 
  /*
