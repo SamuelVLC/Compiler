@@ -111,6 +111,8 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 %type <expressions> param_expr
 %type <expression> expr
 %type <expression> let_expr
+%type <expression> in_let
+
 
 /* Precedence declarations go here. */
 /* Ref: Cool Manual 11.1 Precedence  e Manual Bison3.3 "5.3.4 Precedence Examples"*/
@@ -123,6 +125,7 @@ int omerrs = 0;               /* number of errors in lexing and parsing */
 %left '~'
 %left '@'
 %left '.'
+%precedence IN
 
 %%
 /* 
@@ -225,14 +228,19 @@ expr        : OBJECTID ASSIGN expr { $$ = assign($1, $3); }
 
 
 /* expressões LET do Manual let ID : TYPE [ <- expr ] [[,ID : TYPE [ <- expr ]]]∗ in expr  [ Figure 1: Cool syntax]*/
-let_expr    : OBJECTID ':' TYPEID IN expr { $$ = let($1, $3, no_expr(), $5); }
-			| OBJECTID ':' TYPEID ASSIGN expr IN expr { $$ = let($1, $3, $5, $7); }
+let_expr    : OBJECTID ':' TYPEID in_let { $$ = let($1, $3, no_expr(), $4); }
+			| OBJECTID ':' TYPEID ASSIGN expr in_let{ $$ = let($1, $3, $5, $6); }
 			| OBJECTID ':' TYPEID ',' let_expr { $$ = let($1, $3, no_expr(), $5); }
 			| OBJECTID ':' TYPEID ASSIGN expr ',' let_expr { $$ = let($1, $3, $5, $7); }
 			/* adiconando errors para evitar terminar a análise síntatica após um erro */
-			| error IN expr { yyclearin; $$ = NULL; }
+			| error in_let { yyclearin; $$ = NULL; }
 			| error ',' let_expr { yyclearin; $$ = NULL; }
 			;
+in_let :  IN expr { $$ = $2; } ;
+
+
+// solve : expr { $$ = $1; } | error { yyclearin; $$ = NULL; } ;
+
 
 /* os blocos podem conter 1 ou mais expressões sepradas por ponto e vírgula [Cool Manual] 7.7 Blocks */
 expr_list    : expr ';' { $$ = single_Expressions($1); }
