@@ -1,11 +1,11 @@
 
 ASSN = 3
-CLASS= ?
-CLASSDIR= ?
-LIB= ?
-AR= ?
-ARCHIVE_NEW= ?
-RANLIB= ?
+CLASS= compiladores
+CLASSDIR= /var/tmp/cool
+LIB= -L/usr/lib -lfl
+AR= ar
+ARCHIVE_NEW= -cr
+RANLIB= ar -qs
 
 SRC= cool.y cool-tree.handcode.h good.cl bad.cl README
 CSRC= parser-phase.cc utilities.cc stringtab.cc dumptype.cc \
@@ -88,7 +88,7 @@ submit-clean: ${OUTPUT}
 	-rm -f *.s core ${OBJS} ${CGEN} ${HGEN} lexer *~ parser cgen semant
 
 clean :
-	-rm -f ${OUTPUT} *.s core ${OBJS} ${CGEN} ${HGEN} lexer parser cgen semant *~ *.a *.o 
+	-rm -f ${OUTPUT} *.s core ${OBJS} ${CGEN} ${HGEN} lexer parser cgen semant *~ *.a *.o *.d
 
 clean-compile:
 	@-rm -f core ${OBJS} ${CGEN} ${HGEN} ${LSRC}
@@ -97,3 +97,4 @@ clean-compile:
 	${SHELL} -ec '${DEPEND} $< | sed '\''s/\($*\.o\)[ :]*/\1 $@ : /g'\'' > $@'
 
 -include ${CFIL:.cc=.d}
+
