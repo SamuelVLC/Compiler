@@ -148,6 +148,11 @@ Em geral, junto a leitura e análise dos Manuais de Bison e Cool Manual encontra
 Para a descrição geral dos terminais e não terminais da linguagem foi possível através da descrição que se encontra na `Figura 1 : Cool Syntax` em adicional aos tópicos abordados de forma específica em algumas seções do Manual de Cool, para a descrição da sintaxe em Bison foi necessário observar os exemplos e descrições, além disso, é importante salientar que as devidas referências foram adicionas ao código.
 
 Para o `let` seguimos a descrição encontrada no manual, além disso, adicionamos algumas tratativos de limpeza de lookahead para o parser prosseguir com a leitura, dos tokens e listar o máximo de erros possível. 
+#### Como Iniciar o Projeto
+```
+gmake && gmake parser
+```
+
 
 #### Testes Adicionais
 Adicionamos alguns testes que representam validações de um analisador sintático para linguagem COOL e outros pedidos compartilhados na descrição do TP3.

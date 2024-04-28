@@ -50,19 +50,17 @@ cool-parse.cc cool-parse.h: cool.y
 	bison ${BFLAGS} cool.y
 	mv -f cool.tab.c cool-parse.cc
 
-dotest:	parser good.cl bad.cl stack.cl.SKEL
+dotest:	parser good.cl bad.cl
 	@echo "\nRunning parser on good.cl\n"
 	-./myparser good.cl 
 	@echo "\nRunning parser on bad.cl\n"
 	-./myparser bad.cl
-	@echo "\nRunning parser on stack.cl.SKEL\n"
-	-./myparser ./tests/stack.cl.SKEL
 
-dotest2: parser atoi.cl
+dotest2: parser ./tests/atoi.cl
 	@echo "\nRunning parser on atoi.cl\n"
 	-./myparser ./tests/atoi.cl
 
-dotest3: parser test1.cl test2.cl
+dotest3: parser ./tests/test1.cl ./tests/test2.cl
 	@echo "\nRunning parser on test1.cl\n"
 	-./myparser ./tests/test1.cl
 	@echo "\nRunning parser on test2.cl\n"

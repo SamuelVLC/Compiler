@@ -1,0 +1,13 @@
+*.cc
+*.d
+*.o
+*.h
+
+SynAnalyzer/PA3/cgen
+SynAnalyzer/PA3/cool-tree.aps
+SynAnalyzer/PA3/cool.output
+SynAnalyzer/PA3/lexer
+SynAnalyzer/PA3/mycoolc
+SynAnalyzer/PA3/myparser
+SynAnalyzer/PA3/parser
+SynAnalyzer/PA3/semant
