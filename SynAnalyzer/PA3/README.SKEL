@@ -150,7 +150,7 @@ Para a descrição geral dos terminais e não terminais da linguagem foi possív
 Para o `let` seguimos a descrição encontrada no manual, além disso, adicionamos algumas tratativos de limpeza de lookahead para o parser prosseguir com a leitura, dos tokens e listar o máximo de erros possível. 
 
 #### Testes Adicionais
-Adicionamos alguns testes que representam validações de um analisador léxico para linguagem COOL e outros pedidos compartilhados na descrição do TP2.
+Adicionamos alguns testes que representam validações de um analisador sintático para linguagem COOL e outros pedidos compartilhados na descrição do TP3.
 ```
 ./myparser ./tests/test1.cl 
 ./myparser ./tests/test2.cl
